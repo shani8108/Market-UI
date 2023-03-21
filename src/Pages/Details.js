@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { variables } from '../Variable';
+import { useNavigate } from "react-router-dom";
+
 function Details() {
     const [DepartmentArr, setDepartmentArr] = useState([{}]);
     const [prodArr, setProdArr] = useState([{}]);
+    const navigate = useNavigate();
+
+
 
     const getDepartmentData = async () => {
         await axios
@@ -59,6 +64,14 @@ function Details() {
                 });
         }
     }
+    const UpdateClickDep = (id) => {
+        let path = '/Department';
+        navigate(path, { state: { Id: id } });
+    }
+    const UpdateClickProd = (id) => {
+        let path = '/Products';
+        navigate(path, { state: { Id: id } });
+    }
     useEffect(() => {
         //Runs only on the first render
         //get Department details:
@@ -88,7 +101,9 @@ function Details() {
                                 <td>{i?.Name}</td>
                                 <td>{i?.Description}</td>
                                 <td>
-                                    <button type="button" className="btn btn-light mr-1">
+                                    <button type="button" className="btn btn-light mr-1"
+                                        onClick={() => UpdateClickDep(i.Id)}
+                                    >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                             <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
@@ -116,7 +131,7 @@ function Details() {
                         <th>Product Name</th>
                         <th>Product Price</th>
                         <th>Units in Stock</th>
-                        <th>Product Department Name</th>
+                        <th>Department Name</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -128,9 +143,11 @@ function Details() {
                                 <td>{i?.Name}</td>
                                 <td>{i?.Price}</td>
                                 <td>{i?.InStock}</td>
-                                <td>{i?.DepartmentId}</td>
+                                <td>{i?.Department}</td>
                                 <td>
-                                    <button type="button" className="btn btn-light mr-1">
+                                    <button type="button" className="btn btn-light mr-1"
+                                        onClick={() => UpdateClickProd(i.Id)}
+                                    >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                             <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
