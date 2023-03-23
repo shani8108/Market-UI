@@ -39,7 +39,8 @@ function Products(props) {
             .then((res) => {
                 console.log(res);
                 debugger
-                setDepartmentName(res?.data[0].Name);
+                const ret = res?.data[0].Name;
+                setDepartmentName(ret);
             })
             .catch((err) => {
                 console.log(err);
